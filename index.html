@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>나의 아우라 찾기</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 시작 화면 -->
+        <div id="start-screen" class="screen active">
+            <div class="title-box">
+                <p class="subtitle">바쁜 세상 속 나를 빛내줄</p>
+                <h1 class="main-title">나의<br>아우라<br>찾기</h1>
+            </div>
+            <button id="start-btn" class="start-button">
+                테스트 시작하기
+                <span class="participant-count">✨ 당신만의 특별한 아우라를 발견해보세요</span>
+            </button>
+        </div>
+
+        <!-- 질문 화면 -->
+        <div id="question-screen" class="screen">
+            <div class="progress-container">
+                <div class="progress-text">Q.</div>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+                <div class="progress-number">
+                    <span id="current-question">1</span>/15
+                </div>
+            </div>
+            
+            <div class="question-container">
+                <h2 id="question-text" class="question-text"></h2>
+                <div class="options-container">
+                    <button id="option-a" class="option-button option-a"></button>
+                    <button id="option-b" class="option-button option-b"></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 로딩 화면 -->
+        <div id="loading-screen" class="screen">
+            <div class="loading-container">
+                <div class="loading-dots">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <p class="loading-text">당신의 아우라를 찾는 중...</p>
+            </div>
+        </div>
+
+        <!-- 결과 화면 -->
+        <div id="result-screen" class="screen">
+            <div class="result-container">
+                <div class="result-aura">
+                    <div id="aura-icon" class="aura-icon"></div>
+                    <h2 id="aura-name" class="aura-name"></h2>
+                    <p id="aura-description" class="aura-description"></p>
+                </div>
+                
+                <div class="result-details">
+                    <h3>당신의 아우라 특징</h3>
+                    <ul id="aura-traits" class="aura-traits"></ul>
+                </div>
+                
+                <div class="result-actions">
+                    <button id="restart-btn" class="restart-button">다시 테스트하기</button>
+                    <button id="share-btn" class="share-button">결과 공유하기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

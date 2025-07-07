@@ -1,0 +1,594 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #0a0a0a;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* 배경 애니메이션 */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%);
+    animation: backgroundShift 20s ease-in-out infinite;
+    z-index: -1;
+}
+
+@keyframes backgroundShift {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(1.1) rotate(180deg); }
+}
+
+.container {
+    width: 100%;
+    max-width: 500px;
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.screen {
+    display: none;
+    animation: slideIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.screen.active {
+    display: block;
+}
+
+@keyframes slideIn {
+    from { 
+        opacity: 0; 
+        transform: translateY(30px) scale(0.95); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0) scale(1); 
+    }
+}
+
+/* 시작 화면 */
+.title-box {
+    text-align: center;
+    margin-bottom: 60px;
+    padding: 50px 40px;
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.title-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+.subtitle {
+    font-size: 14px;
+    margin-bottom: 24px;
+    opacity: 0.8;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.main-title {
+    font-size: 52px;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -1px;
+    background: linear-gradient(135deg, #ff6b9d, #c471ed, #12c2e9);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 8px;
+}
+
+.start-button {
+    width: 100%;
+    padding: 20px 30px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    border-radius: 16px;
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+
+.start-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.start-button:hover::before {
+    opacity: 1;
+}
+
+.start-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
+}
+
+.start-button span {
+    position: relative;
+    z-index: 1;
+}
+
+.participant-count {
+    display: block;
+    font-size: 14px;
+    margin-top: 8px;
+    opacity: 0.9;
+    font-weight: 400;
+}
+
+/* 질문 화면 */
+.progress-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 50px;
+    gap: 20px;
+}
+
+.progress-text {
+    font-size: 28px;
+    font-weight: 300;
+    color: #ff6b9d;
+}
+
+.progress-bar {
+    flex: 1;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #ff6b9d, #c471ed, #12c2e9);
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 0%;
+    border-radius: 2px;
+    box-shadow: 0 0 10px rgba(255, 107, 157, 0.5);
+}
+
+.progress-number {
+    font-size: 16px;
+    opacity: 0.8;
+    font-weight: 500;
+}
+
+.question-container {
+    text-align: center;
+}
+
+.question-text {
+    font-size: 26px;
+    font-weight: 500;
+    line-height: 1.4;
+    margin-bottom: 50px;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #f8f9fa;
+}
+
+.options-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.option-button {
+    padding: 24px 30px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.option-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255, 107, 157, 0.1), rgba(196, 113, 237, 0.1));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.option-button:hover::before {
+    opacity: 1;
+}
+
+.option-button:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 107, 157, 0.3);
+    box-shadow: 0 8px 25px rgba(255, 107, 157, 0.15);
+}
+
+.option-a {
+    background: rgba(255, 107, 157, 0.08);
+    border-color: rgba(255, 107, 157, 0.2);
+}
+
+.option-b {
+    background: rgba(196, 113, 237, 0.08);
+    border-color: rgba(196, 113, 237, 0.2);
+}
+
+/* 로딩 화면 */
+.loading-container {
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.loading-dots {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 40px;
+}
+
+.dot {
+    width: 16px;
+    height: 16px;
+    background: linear-gradient(135deg, #ff6b9d, #c471ed);
+    border-radius: 50%;
+    animation: bounce 1.4s ease-in-out infinite both;
+    box-shadow: 0 0 10px rgba(255, 107, 157, 0.5);
+}
+
+.dot:nth-child(1) { animation-delay: -0.32s; }
+.dot:nth-child(2) { animation-delay: -0.16s; }
+
+@keyframes bounce {
+    0%, 80%, 100% {
+        transform: scale(0.8);
+        opacity: 0.5;
+    }
+    40% {
+        transform: scale(1.2);
+        opacity: 1;
+    }
+}
+
+.loading-text {
+    font-size: 20px;
+    opacity: 0.9;
+    font-weight: 500;
+}
+
+/* 결과 화면 */
+.result-container {
+    text-align: center;
+    padding: 20px;
+}
+
+.result-aura {
+    margin-bottom: 40px;
+    padding: 40px 30px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.result-aura::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255, 107, 157, 0.1), rgba(196, 113, 237, 0.1));
+    opacity: 0.5;
+}
+
+.aura-icon {
+    font-size: 80px;
+    margin-bottom: 24px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+}
+
+.aura-icon img {
+    filter: drop-shadow(0 0 20px rgba(255, 107, 157, 0.3));
+}
+
+.aura-name {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, #ff6b9d, #c471ed, #12c2e9);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    position: relative;
+    z-index: 1;
+}
+
+.aura-description {
+    font-size: 16px;
+    line-height: 1.6;
+    opacity: 0.9;
+    position: relative;
+    z-index: 1;
+}
+
+.result-details {
+    margin-bottom: 40px;
+    text-align: left;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    padding: 30px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.result-details h3 {
+    font-size: 22px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.aura-traits {
+    list-style: none;
+}
+
+.aura-traits li {
+    padding: 12px 0;
+    font-size: 15px;
+    opacity: 0.9;
+    position: relative;
+    padding-left: 30px;
+    line-height: 1.5;
+}
+
+.aura-traits li:before {
+    content: "✨";
+    position: absolute;
+    left: 0;
+    font-size: 16px;
+}
+
+.result-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.restart-button, .share-button {
+    padding: 18px 30px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.restart-button::before, .share-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255, 107, 157, 0.2), rgba(196, 113, 237, 0.2));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.restart-button:hover::before, .share-button:hover::before {
+    opacity: 1;
+}
+
+.restart-button:hover, .share-button:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 107, 157, 0.4);
+    box-shadow: 0 8px 25px rgba(255, 107, 157, 0.2);
+}
+
+.share-button {
+    background: linear-gradient(135deg, rgba(255, 107, 157, 0.1), rgba(196, 113, 237, 0.1));
+}
+
+/* 반응형 디자인 */
+@media (max-width: 480px) {
+    .container {
+        padding: 15px;
+    }
+    
+    .main-title {
+        font-size: 42px;
+    }
+    
+    .question-text {
+        font-size: 22px;
+    }
+    
+    .option-button {
+        padding: 20px 25px;
+        font-size: 15px;
+    }
+    
+    .title-box {
+        padding: 40px 30px;
+    }
+}
+
+/* 아우라별 색상 테마 */
+.fire-theme {
+    background: #0a0a0a;
+}
+
+.fire-theme::before {
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(255, 107, 107, 0.4) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 165, 0, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(255, 69, 0, 0.2) 0%, transparent 50%);
+}
+
+.calm-theme {
+    background: #0a0a0a;
+}
+
+.calm-theme::before {
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(116, 185, 255, 0.4) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(9, 132, 227, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(0, 184, 148, 0.2) 0%, transparent 50%);
+}
+
+.balance-theme {
+    background: #0a0a0a;
+}
+
+.balance-theme::before {
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(162, 155, 254, 0.4) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(108, 92, 231, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(116, 185, 255, 0.2) 0%, transparent 50%);
+}
+
+.emotional-theme {
+    background: #0a0a0a;
+}
+
+.emotional-theme::before {
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(253, 121, 168, 0.4) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(232, 67, 147, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(255, 182, 193, 0.2) 0%, transparent 50%);
+}
+
+.dynamic-theme {
+    background: #0a0a0a;
+}
+
+.dynamic-theme::before {
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(253, 203, 110, 0.4) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(225, 112, 85, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(255, 215, 0, 0.2) 0%, transparent 50%);
+}
+
+.nature-theme {
+    background: #0a0a0a;
+}
+
+.nature-theme::before {
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(85, 163, 255, 0.4) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(0, 184, 148, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(46, 204, 113, 0.2) 0%, transparent 50%);
+}
+
+.mystic-theme {
+    background: #0a0a0a;
+}
+
+.mystic-theme::before {
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(108, 92, 231, 0.4) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(45, 52, 54, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(99, 110, 114, 0.2) 0%, transparent 50%);
+}
+
+.rainbow-theme {
+    background: #0a0a0a;
+}
+
+.rainbow-theme::before {
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(255, 107, 107, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(76, 201, 240, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(150, 206, 180, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 30% 70%, rgba(254, 202, 87, 0.3) 0%, transparent 50%);
+    animation: rainbowShift 8s ease-in-out infinite;
+}
+
+@keyframes rainbowShift {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    25% { transform: scale(1.1) rotate(90deg); }
+    50% { transform: scale(1.2) rotate(180deg); }
+    75% { transform: scale(1.1) rotate(270deg); }
+}
+
