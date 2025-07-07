@@ -5,6 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>나의 아우라 찾기</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* 우측 고정 광고 스타일 */
+        .right-fixed-ad {
+            position: fixed;
+            top: 100px;
+            right: 10px;
+            width: 160px;
+            height: 600px;
+            z-index: 1000;
+            background: #f9f9f9;
+            border: 2px dashed #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        @media (max-width: 1024px) {
+            .right-fixed-ad {
+                display: none;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -102,6 +123,15 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <!-- 우측 고정 광고 영역 -->
+    <div class="right-fixed-ad">
+        <ins class="kakao_ad_area" style="display:none;"
+            data-ad-unit="DAN-AvaM8QPxYEUZ4yDn"
+            data-ad-width="160"
+            data-ad-height="600"></ins>
+        <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
     </div>
 
     <script src="script.js"></script>
