@@ -8,6 +8,22 @@
 </head>
 <body>
     <div class="container">
+
+        <!-- 광고 영역 (시작 화면 상단) -->
+        <div class="ad-container" style="margin: 20px auto; text-align: center;
+             width: 300px; height: 250px;
+             border: 2px dashed #ccc; background-color: #f9f9f9; position: relative;">
+            <ins class="kakao_ad_area" style="display:none;"
+                data-ad-unit="DAN-V3dH9K2PUoQRA4Z0"
+                data-ad-width="300"
+                data-ad-height="250"></ins>
+            <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+            <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+                        font-size:14px; color:#888;">
+                [카카오 광고 자리입니다]<br>승인 전이라 표시되지 않을 수 있습니다.
+            </div>
+        </div>
+
         <!-- 시작 화면 -->
         <div id="start-screen" class="screen active">
             <div class="title-box">
@@ -72,19 +88,15 @@
                     <button id="share-btn" class="share-button">결과 공유하기</button>
                 </div>
 
-                <!-- 광고 영역 (자리 표시 포함) -->
+                <!-- 광고 영역 (결과 하단) -->
                 <div class="ad-container" style="margin-top: 20px; text-align: center;
                      width: 300px; height: 250px; margin-left: auto; margin-right: auto;
                      border: 2px dashed #ccc; background-color: #f9f9f9; position: relative;">
-
-                    <!-- 카카오 광고 영역 -->
                     <ins class="kakao_ad_area" style="display:none;"
                         data-ad-unit="DAN-V3dH9K2PUoQRA4Z0"
                         data-ad-width="300"
                         data-ad-height="250"></ins>
                     <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
-
-                    <!-- 자리 표시 텍스트 -->
                     <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
                                 font-size:14px; color:#888;">
                         [카카오 광고 자리입니다]<br>승인 전이라 표시되지 않을 수 있습니다.
