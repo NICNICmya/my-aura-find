@@ -25,6 +25,25 @@
                 display: none;
             }
         }
+
+        .bottom-fixed-ad {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 320px;
+            height: 50px;
+            background: #f9f9f9;
+            border-top: 2px dashed #ccc;
+            z-index: 1000;
+            text-align: center;
+        }
+
+        @media (max-width: 400px) {
+            .bottom-fixed-ad {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -118,6 +137,15 @@
 		data-ad-width = "160"
 		data-ad-height = "600"></ins>
 		<script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+    </div>
+
+    <!-- 하단 고정 광고 영역 -->
+    <div class="bottom-fixed-ad">
+        <ins class="kakao_ad_area" style="display:none;"
+            data-ad-unit="DAN-CEVGzDCDwUy6GP95"
+            data-ad-width="320"
+            data-ad-height="50"></ins>
+        <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
     </div>
 
     <script src="script.js"></script>
